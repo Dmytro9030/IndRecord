@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:flutter/cupertino.dart';
 import 'package:gap/gap.dart';
 import 'package:ind_records/globalWidget/glow_container.dart';
@@ -20,6 +19,7 @@ class LoginPageBtn extends StatelessWidget {
     return TouchableOpacity(
       onTap: onClickFunction,
       child: GlowContainer(
+        padding: const EdgeInsets.symmetric(vertical: 7),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [icon, const Gap(10), Text(title)],

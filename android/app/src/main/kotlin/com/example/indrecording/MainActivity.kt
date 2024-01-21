@@ -1,4 +1,4 @@
-package com.example.ind_records
+package com.example.indrecording
 
 import io.flutter.embedding.android.FlutterActivity
 

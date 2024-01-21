@@ -63,44 +63,20 @@ class MeScreen extends StatelessWidget {
                   // height: 100,
                 ),
               ),
-              const InfoCard(
-                title: 'Favourite topics and interests',
-                content: 'Sport. Speaker mentioned he likes a golf...',
-              ),
-              const Gap(20),
-              const InfoCard(
-                title: 'Contradictions in statements',
-                content:
-                    'First, speaker mentioned he keeps a healthy lifestyle, but he likes alcohol as well...',
-              ),
+              // const InfoCard(
+              //   title: 'Favourite topics and interests',
+              //   content: 'Sport. Speaker mentioned he likes a golf...',
+              // ),
+              // const Gap(20),
+              // const InfoCard(
+              //   title: 'Contradictions in statements',
+              //   content:
+              //       'First, speaker mentioned he keeps a healthy lifestyle, but he likes alcohol as well...',
+              // ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class InfoCard extends StatelessWidget {
-  const InfoCard({
-    super.key,
-    required this.title,
-    required this.content,
-  });
-
-  final String title;
-
-  final String content;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title),
-        const Gap(10),
-        GlowContainer(child: Text(content)),
-      ],
     );
   }
 }

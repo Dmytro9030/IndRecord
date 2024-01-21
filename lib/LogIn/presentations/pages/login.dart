@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ind_records/LogIn/presentations/widgets/singinBtn.dart';
+import 'package:ind_records/LogIn/presentations/widgets/singin_btn.dart';
 import 'package:ind_records/OnBoard/pages/first_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,15 +16,15 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   User? _user;
   bool stateVal = false;
 
   @override
   void initState() {
     super.initState();
-    _auth.authStateChanges().listen((event) {
+    _auth.authStateChanges().listen((event) async {
       if (event != null) {
+        print(event);
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -54,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
               title: 'Google Auth',
               onClickFunction: () async {
                 UserCredential userCredential = await signInWithGoogle();
+                _user = userCredential.user;
                 if (userCredential != Null) {
                   // ignore: avoid_print
                   print('result: $userCredential\nuser: $_user');

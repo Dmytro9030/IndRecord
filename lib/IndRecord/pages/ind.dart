@@ -1,29 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:ind_records/IndRecord/widgets/infocard.dart';
 import 'package:ind_records/globalWidget/glow_container.dart';
-import 'package:ind_records/screens/me.dart';
+import 'package:ind_records/widgets/touchables.dart';
 
-class IndRecordingPage extends StatelessWidget {
+class IndRecordingPage extends StatefulWidget {
   const IndRecordingPage({super.key});
 
   @override
+  State<IndRecordingPage> createState() => _IndRecordingPageState();
+}
+
+class _IndRecordingPageState extends State<IndRecordingPage> {
+  @override
   Widget build(BuildContext context) {
+    var maxScreenWidth = MediaQuery.of(context).size.width;
+    var zoomWidthRate = maxScreenWidth / 390;
+    var maxScreenHeight = MediaQuery.of(context).size.height;
+    var zoomHeightRate = maxScreenHeight / 844;
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.fromLTRB(
+            15 * zoomWidthRate, 45 * zoomHeightRate, 17 * zoomWidthRate, 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgPicture.asset(
-              'assets/svgs/settings.svg',
-              width: 24,
-              height: 24,
-              fit: BoxFit.scaleDown,
+            //App Bar
+            Row(
+              children: [
+                TouchableOpacity(
+                  child: SvgPicture.asset(
+                    'assets/svgs/settings.svg',
+                    width: 18.75 * zoomWidthRate,
+                    height: 19.75 * zoomHeightRate,
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+                Flexible(
+                  child: Center(
+                    child: Text("Hi, Michael 👋",
+                        style: TextStyle(fontSize: 14 * zoomHeightRate)),
+                  ),
+                ),
+              ],
             ),
-            Text('ME'),
+            //Summary
             Container(
               padding: const EdgeInsets.all(20),
+              margin: EdgeInsets.only(top: 20 * zoomHeightRate),
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -41,22 +66,42 @@ class IndRecordingPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  GlowContainer(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.play_arrow),
-                        Image.asset('assets/images/sound_wave.png')
-                      ],
+                  SizedBox(
+                    width: 179 * zoomWidthRate,
+                    height: 49 * zoomHeightRate,
+                    child: GlowContainer(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.play_arrow),
+                          Image.asset('assets/images/sound_wave.png')
+                        ],
+                      ),
                     ),
                   ),
-                  const Gap(20),
-                  const Text(
-                      'Summary for IndRecord will be here as simple text which you can copy/paste'),
-                  const Gap(20),
-                  Row(
+                  Gap(15 * zoomHeightRate),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
+                      Text(
+                        'Summary for IndRecord will be here as',
+                        style: TextStyle(fontSize: 15 * zoomHeightRate),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        'simple text which you can copy/paste',
+                        style: TextStyle(fontSize: 15 * zoomHeightRate),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                  Gap(25 * zoomHeightRate),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 105 * zoomWidthRate,
+                        height: 29 * zoomHeightRate,
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             foregroundColor: Colors.white,
@@ -68,54 +113,76 @@ class IndRecordingPage extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {},
-                          child: const Text('Full text'),
+                          child: Text(
+                            'Full text',
+                            style: TextStyle(fontSize: 15 * zoomHeightRate),
+                          ),
                         ),
                       ),
-                      const Gap(20),
-                      Expanded(
+                      SizedBox(
+                        width: 105 * zoomWidthRate,
+                        height: 29 * zoomHeightRate,
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.all(0),
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                               side: const BorderSide(
-                                color: Colors.blue,
+                                color: Colors.white,
                               ),
                             ),
                           ),
                           onPressed: () {},
-                          child: const Text('Full summary'),
+                          child: Text(
+                            'Full Summary',
+                            style: TextStyle(fontSize: 15 * zoomHeightRate),
+                            textAlign: TextAlign.start,
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],
               ),
             ),
-            const Gap(20),
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+
+            Column(
               children: [
-                Text('Personality scrore'),
-                Text(
-                  '8',
-                  style: TextStyle(fontSize: 40),
+                //Personal Score
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Personality scrore'),
+                    Text(
+                      '8',
+                      style: TextStyle(fontSize: 40),
+                    ),
+                  ],
                 ),
+                SvgPicture.asset('assets/svgs/sentiment.svg'),
+                SvgPicture.asset('assets/svgs/sentiment.svg'),
+                //Last Part: InfoRectangle
+                Column(
+                  children: [
+                    InfoCard(
+                      size: Size(290 * zoomWidthRate, 43 * zoomHeightRate),
+                      title: 'Favourite topics and interests',
+                      content: 'Sport. Speaker mentioned he likes a golf...',
+                    ),
+                    const Gap(15),
+                    InfoCard(
+                      size: Size(290 * zoomWidthRate, 43 * zoomHeightRate),
+                      title: 'Contradictions in statements',
+                      content:
+                          'First, speaker mentioned he keeps a healthy lifestyle, but he likes alcohol as well...',
+                    ),
+                  ],
+                ),
+                const Gap(15),
               ],
             ),
-            SvgPicture.asset('assets/svgs/sentiment.svg'),
-            SvgPicture.asset('assets/svgs/sentiment.svg'),
-            const Gap(20),
-            const InfoCard(
-              title: 'Favourite topics and interests',
-              content: 'Sport. Speaker mentioned he likes a golf...',
-            ),
-            const Gap(20),
-            const InfoCard(
-              title: 'Contradictions in statements',
-              content:
-                  'First, speaker mentioned he keeps a healthy lifestyle, but he likes alcohol as well...',
-            ),
+
             const Gap(60),
           ],
         ),
